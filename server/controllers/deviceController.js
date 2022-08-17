@@ -1,4 +1,4 @@
-const {Device, DeviceInfo, Type} = require('../models/models')
+const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const path = require('path')
@@ -77,12 +77,13 @@ class deviceController {
     return res.json(device)
   }
 
+
   async delete(req, res) {
     const {id} = req.body
-    const type = await Device.destroy({
+    const device = await Device.destroy({
       where: {id}
     })
-    return res.status(204)
+    return res.status(204).json({message: 'successfully deleted'})
   }
 
 }

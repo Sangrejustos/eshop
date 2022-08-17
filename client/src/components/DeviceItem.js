@@ -5,8 +5,6 @@ import {useNavigate} from 'react-router-dom'
 import {DEVICE_ROUTE} from "../utils/consts";
 import {useContext} from "react";
 import {Context} from "../index";
-import {useEffect} from "react";
-import {fetchBrands} from "../http/brandAPI";
 
 const DeviceItem = ({thisDevice}) => {
   const navigate = useNavigate()

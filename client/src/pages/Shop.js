@@ -26,8 +26,6 @@ const Shop = observer(() => {
     fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, device.limit).then(data => {
       device.setDevices(data.rows)
       device.setTotalCount(data.count)
-      console.log(device.totalCount)
-      console.log(device.limit)
     })
   }, [device.page, device.selectedType.id, device.selectedBrand.id])
 

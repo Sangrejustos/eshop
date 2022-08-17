@@ -9,5 +9,4 @@ router.get('/auth', authMiddleware, userController.check)
 
 
 
-
 module.exports = router

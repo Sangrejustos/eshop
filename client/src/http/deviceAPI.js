@@ -15,6 +15,10 @@ export const fetchDevice = async (id) => {
   const {data} = await $host.get(`/api/device/${id}`)
   return data
 }
+
+export const fetchOnlyDevice = async (id) => {
+  const {data} = await $host.get(`/api/device/only`)
+}
 export const deleteDevice = async () => {
 
 }

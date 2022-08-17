@@ -3,15 +3,23 @@ import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
 import star from '../assets/bigStar.png'
 import {fetchDevice} from "../http/deviceAPI";
 import {useParams} from "react-router-dom";
-import data from "bootstrap/js/src/dom/data";
+import Counter from "../components/Counter";
+import {createBasketItem} from "../http/basketAPI";
+import jwtDecode from "jwt-decode";
 
 const DevicePage = () => {
   const [device, setDevice] = useState({info: []})
   const {id} = useParams()
+  const [amount, setAmount] = useState(1)
+  const user = jwtDecode(localStorage.getItem('token'))
 
   useEffect(() => {
     fetchDevice(id).then(data => setDevice(data))
   }, [])
+
+  const addToCart = () => {
+    createBasketItem(amount, user.id, id)
+  }
 
   return (
     <Container className={'mt-3'}>
@@ -52,7 +60,11 @@ const DevicePage = () => {
             <h3>
              Starting From ${device.price}
             </h3>
-            <Button variant={"outline-dark"}>
+            <div>
+              <p></p>
+              <Counter value={amount} onPlus={() => setAmount(amount + 1)} onMinus={() => {if(amount > 1) setAmount(amount - 1)}}/>
+            </div>
+            <Button variant={"outline-dark"} onClick={addToCart}>
               Add to cart
             </Button>
           </Card>
@@ -60,18 +72,18 @@ const DevicePage = () => {
       </Row>
       <Row className={'d-flex flex-column m-3'}>
         <h2>Specification</h2>
-        {/*{*/}
-        {/*  device.description.map((desc) =>*/}
-        {/*    <Row*/}
-        {/*      key={desc.id}*/}
-        {/*      style={{*/}
-        {/*        background: desc.id % 2 === 0 ? 'transparent' : 'lightgray',*/}
-        {/*        padding: 10*/}
-        {/*    }}>*/}
-        {/*      {desc.title}: {desc.value}*/}
-        {/*    </Row>*/}
-        {/*  )*/}
-        {/*}*/}
+        { device.description &&
+          device.description.map((desc) =>
+            <Row
+              key={desc.id}
+              style={{
+                background: desc.id % 2 === 0 ? 'transparent' : 'lightgray',
+                padding: 10
+            }}>
+              {desc.title}: {desc.value}
+            </Row>
+          )
+        }
       </Row>
     </Container>
   );
