@@ -18,3 +18,9 @@ E-shop with admin page
 * React-router-dom
 * Axios
 * MobX
+
+---
+# Запуск клиента / run client
+npm start
+# Запуск сервера / run server
+npm run dev
