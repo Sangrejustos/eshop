@@ -18,6 +18,7 @@ const NavBar = observer(() => {
     user.setIsAuth(false)
     user.setBasket([])
     localStorage.removeItem('token')
+    navigate(SHOP_ROUTE, {replace: true})
   }
 
   return (
