@@ -20,7 +20,7 @@ class basketController {
   }
 
   async deleteItem(req, res) {
-    let {userId, deviceId} = req.body
+    let {userId, deviceId} = req.query
 
     const basketDevice = await BasketDevice.destroy({
       where: {basketId: userId, deviceId}

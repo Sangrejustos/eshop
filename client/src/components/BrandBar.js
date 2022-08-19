@@ -10,7 +10,7 @@ const BrandBar = observer(() => {
   return (
     <Row className={'d-flex flex-shrink-0'}>
       {
-        device.brands.map(brand =>
+        device.brands.map((brand, index) =>
           <Col
             lg={'auto'}
             md={'auto'}
@@ -19,12 +19,16 @@ const BrandBar = observer(() => {
             key={brand.id}
           >
           <Card
-            style={{cursor: 'pointer'}}
-            border={brand.id === device.selectedBrand.id ? 'dark' : 'light'}
-            className={'p-2'}
-            onClick={() => device.setSelectedBrand(brand)}
+            style={{cursor: 'pointer', minWidth: 100}}
+            bg={brand.id === device.selectedBrand.id ? 'dark' : ''}
+            className={index === 0 ? 'p-2 rounded-0' : 'p-2 rounded-0 border-start-0'}
+            border={'dark'}
+            text={brand.id === device.selectedBrand.id ? 'light' : ''}
+            onClick={() => device.selectedBrand !== brand ? device.setSelectedBrand(brand) : device.setSelectedBrand({})}
           >
-            {brand.name}
+            <div className={'m-auto'}>
+              {brand.name}
+            </div>
           </Card>
           </Col>
         )

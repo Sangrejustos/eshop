@@ -9,3 +9,7 @@ export const fetchBasketDevices = async (userId) => {
   const {data} = await $authHost.get('/api/basket', {params: {userId}})
   return data
 }
+
+export const deleteBasketDevice = async (userId, deviceId) => {
+  await $authHost.delete('/api/basket', {params: {userId, deviceId}})
+}

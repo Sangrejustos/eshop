@@ -1,7 +1,7 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {Pagination} from "react-bootstrap";
+import {Button, ButtonGroup} from "react-bootstrap";
 
 const Pages = observer(() => {
   const {device} = useContext(Context)
@@ -13,19 +13,21 @@ const Pages = observer(() => {
   }
 
   return (
-    <Pagination className={'mt-5'}>
+    <ButtonGroup className={'mt-5'}>
       {
         pages.map(page =>
-          <Pagination.Item
+          <Button
             active={device.page === page}
+            variant={'outline-dark'}
+            className={'rounded-0'}
             key={page}
             onClick={() => device.setPage(page)}
           >
             {page}
-          </Pagination.Item>
+          </Button>
         )
       }
-    </Pagination>
+    </ButtonGroup>
   );
 });
 

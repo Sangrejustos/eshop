@@ -1,13 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Card, Col, Container, Image, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
 import {Context} from "../index";
-import {fetchBasketDevices} from "../http/basketAPI";
+import {deleteBasketDevice, fetchBasketDevices} from "../http/basketAPI";
 import {observer} from "mobx-react-lite";
 import {fetchDevice} from "../http/deviceAPI";
 
 const Basket = observer(() => {
   const {user} = useContext(Context)
   const [basketDevices, setBasketDevices] = useState([])
+
+  const deleteFromBasket = (id) => {
+    deleteBasketDevice(user.user.id, id)
+    setBasketDevices(basketDevices.filter( item => item.id !== id))
+  }
 
   const fetchDevices = async (basket) => {
     for (const item of basket) {
@@ -37,7 +42,7 @@ const Basket = observer(() => {
       <Row>
         <Col sm={2}><div className={'m-auto'}>Product</div></Col>
         <Col sm={2}>Name</Col>
-        <Col sm={6}></Col>
+        <Col sm={4}></Col>
         <Col sm={2}>Price</Col>
 
       </Row>
@@ -52,8 +57,11 @@ const Basket = observer(() => {
             <Row>
               <Col sm={2}><Image style={{width: 100, height: 100}} src={process.env.REACT_APP_API_URL + item.img}/></Col>
               <Col sm={2}>{item.name}</Col>
-              <Col sm={6}></Col>
+              <Col sm={4}></Col>
               <Col sm={2} className={'ps-3'}>${item.price}</Col>
+              <Col sm={2}>
+                <Button variant={'outline-danger'} onClick={() => deleteFromBasket(item.id)}>Delete</Button>
+              </Col>
             </Row>
           </Card>
         )

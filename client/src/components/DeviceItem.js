@@ -16,13 +16,13 @@ const DeviceItem = ({thisDevice}) => {
       md={3}
       sm={3}
       className={'mt-1'}
-      onClick={() => navigate(DEVICE_ROUTE + "/" + thisDevice.id )}
     >
       <Card
-        border={"light"}
         style={{cursor: "pointer", width: 150}}
+        className={'rounded-0 p-1 border-0'}
+        onClick={() => navigate(DEVICE_ROUTE + "/" + thisDevice.id )}
       >
-        <Image height={150} width={150} src={process.env.REACT_APP_API_URL + thisDevice.img}/>
+        <Image height={150} src={process.env.REACT_APP_API_URL + thisDevice.img}/>
         <div className={'text-black-50 d-flex justify-content-between align-items-center'}>
           <div>{ device.brands.find(item => item.id === thisDevice.brandId).name }</div>
           <div className={'d-flex align-items-center'}>
